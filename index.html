@@ -834,8 +834,7 @@
                 }
                 const loadingPlaceholder = document.getElementById('loading-placeholder');
                 if(loadingPlaceholder) loadingPlaceholder.style.display = 'none';
-                if('requestIdleCallback' in window) requestIdleCallback(()=> loadGalleryOptimized(), { timeout: 2000 });
-                else setTimeout(()=> loadGalleryOptimized(), 300);
+                loadGalleryOptimized();
             } catch(e) {
                 profileContainer.innerHTML = `<div class="status-message"><i class="fas fa-cloud-moon"></i> 无法获取GitHub数据，请刷新重试。</div>`;
                 const loadingElem = document.getElementById('loading-placeholder');
@@ -980,38 +979,32 @@
             });
         }
 
+        // ========== 优化后的图片加载函数（方案二） ==========
         async function loadGalleryOptimized() {
-            const maxCheck = 35;
-            const exts = ['jpg','jpeg','png','webp'];
-            const found = [];
-            for(let i=1;i<=maxCheck;i++){
-                let got=false;
-                for(const ext of exts){
-                    const url = `pictures/${i}.${ext}`;
-                    const exists = await imageExistsFast(url);
-                    if(exists){ found.push(url); got=true; break; }
+            try {
+                const response = await fetch('pictures/list.json');
+                if (!response.ok) throw new Error('list.json not found');
+                const existingImages = await response.json();
+                
+                if (!existingImages || !existingImages.length) {
+                    gallerySection.style.display = 'none';
+                    return;
                 }
-                if(!got && i>12 && found.length===0) break;
+                
+                galleryImages = existingImages;
+                gallerySection.style.display = 'block';
+                renderGalleryLazy();
+                startGalleryAutoPlay();
+                
+                const gContainer = document.querySelector('.gallery-container');
+                if (gContainer) {
+                    gContainer.addEventListener('mouseenter', () => { isGalleryHovering = true; stopGalleryAutoPlay(); });
+                    gContainer.addEventListener('mouseleave', () => { isGalleryHovering = false; startGalleryAutoPlay(); });
+                }
+            } catch (e) {
+                console.warn('加载图片列表失败，请确认 pictures/list.json 文件存在:', e);
+                gallerySection.style.display = 'none';
             }
-            if(found.length===0){ gallerySection.style.display='none'; return; }
-            galleryImages = found;
-            gallerySection.style.display='block';
-            renderGalleryLazy();
-            startGalleryAutoPlay();
-            const gContainer = document.querySelector('.gallery-container');
-            if(gContainer){
-                gContainer.addEventListener('mouseenter',()=>{ isGalleryHovering=true; stopGalleryAutoPlay(); });
-                gContainer.addEventListener('mouseleave',()=>{ isGalleryHovering=false; startGalleryAutoPlay(); });
-            }
-        }
-
-        function imageExistsFast(url){
-            return new Promise(resolve=>{
-                const img=new Image();
-                img.onload=()=>resolve(true);
-                img.onerror=()=>resolve(false);
-                img.src=url;
-            });
         }
 
         function renderGalleryLazy(){
