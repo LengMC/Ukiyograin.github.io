@@ -2,7 +2,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>浮生栖沙 · 流沙与代码之间</title>
+    <title>浮生栖沙 · Ukiyograin</title>
     <link rel="icon" type="image/jpeg" href="icon/icon.jpg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,11 +16,10 @@
         }
 
         body {
-            background-color: #f5f4f0;
             font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            color: #1e1e1c;
             line-height: 1.4;
             scroll-behavior: smooth;
+            transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s;
         }
 
         .container {
@@ -34,28 +33,31 @@
             flex-wrap: wrap;
             justify-content: space-between;
             align-items: flex-end;
-            border-bottom: 2px solid #dcd7cd;
+            border-bottom: 2px solid;
             padding-bottom: 2rem;
             margin-bottom: 3rem;
+            transition: border-color 0.2s;
         }
         .title-group h1 {
             font-size: 3.2rem;
             font-weight: 600;
             letter-spacing: -0.02em;
-            color: #1e1e1c;
             line-height: 1.2;
         }
         .title-group .tagline {
             font-size: 1rem;
             font-weight: 400;
-            color: #6b6a64;
             margin-top: 0.5rem;
-            border-left: 3px solid #cbc6bb;
+            border-left: 3px solid;
             padding-left: 0.75rem;
         }
+        .header-actions {
+            display: flex;
+            gap: 0.8rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
         .github-badge {
-            background: #2c2b28;
-            color: #f0eee9;
             padding: 0.6rem 1.2rem;
             border-radius: 40px;
             font-size: 0.9rem;
@@ -70,21 +72,46 @@
             font-size: 1.2rem;
         }
         .github-badge:hover {
-            background: #1e1e1c;
             transform: scale(0.98);
+        }
+        .ctrl-btn {
+            border-radius: 40px;
+            padding: 0.5rem 1rem;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+            font-family: inherit;
+            border: 1px solid;
+        }
+        .ctrl-btn:hover {
+            transform: translateY(-1px);
+        }
+        .theme-select {
+            border-radius: 40px;
+            padding: 0.5rem 1rem;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            font-family: inherit;
+            outline: none;
+            border: 1px solid;
         }
 
         .profile-card {
-            background: #faf9f6;
             border-radius: 32px;
             padding: 2rem;
             margin: 1rem 0 2rem;
-            border: 1px solid #e9e3db;
+            border: 1px solid;
             display: flex;
             flex-wrap: wrap;
             gap: 2rem;
             align-items: center;
             justify-content: space-between;
+            transition: background 0.2s, border-color 0.2s;
         }
         .profile-info {
             display: flex;
@@ -101,8 +128,7 @@
             height: 80px;
             border-radius: 50%;
             object-fit: cover;
-            background: #e3ddd4;
-            border: 2px solid #e1d9d0;
+            border: 2px solid;
             display: block;
         }
         .status-indicator {
@@ -120,7 +146,7 @@
             color: white;
             cursor: help;
             transition: transform 0.2s;
-            border: 2px solid #faf9f6;
+            border: 2px solid;
         }
         .status-indicator:hover {
             transform: scale(1.1);
@@ -141,7 +167,6 @@
             margin-bottom: 0.3rem;
         }
         .profile-bio {
-            color: #5f5e58;
             font-size: 0.95rem;
             line-height: 1.5;
             margin-top: 0.3rem;
@@ -152,7 +177,6 @@
             display: flex;
             gap: 16px;
             font-size: 0.8rem;
-            color: #8a8880;
         }
         .profile-meta span {
             display: inline-flex;
@@ -162,10 +186,10 @@
         .stats-mini {
             display: flex;
             gap: 1.8rem;
-            background: #ffffff;
             padding: 0.8rem 1.8rem;
             border-radius: 80px;
-            border: 1px solid #e7e1d8;
+            border: 1px solid;
+            transition: background 0.2s;
         }
         .stats-mini div {
             text-align: center;
@@ -173,13 +197,11 @@
         .stats-number {
             font-weight: 700;
             font-size: 1.3rem;
-            color: #2c2b28;
         }
         .stats-label {
             font-size: 0.7rem;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            color: #928f86;
         }
 
         .carousel-section {
@@ -194,7 +216,7 @@
             align-items: baseline;
             justify-content: space-between;
             flex-wrap: wrap;
-            border-bottom: 1px solid #e0d9d0;
+            border-bottom: 1px solid;
             padding-bottom: 0.8rem;
         }
         .section-title span:first-child {
@@ -202,7 +224,6 @@
         }
         .repo-count {
             font-size: 0.85rem;
-            background: #e9e4dd;
             padding: 0.2rem 0.7rem;
             border-radius: 20px;
             font-weight: 400;
@@ -219,16 +240,15 @@
         }
         .repo-carousel-card {
             flex: 0 0 calc(33.333% - 1rem);
-            background: #ffffff;
             border-radius: 28px;
             padding: 1.6rem;
-            border: 1px solid #ece7e0;
+            border: 1px solid;
             box-shadow: 0 2px 5px rgba(0,0,0,0.02);
             transition: all 0.25s ease;
+            background: inherit;
         }
         .repo-carousel-card:hover {
             transform: translateY(-4px);
-            border-color: #d0c8bc;
             box-shadow: 0 12px 20px -10px rgba(0,0,0,0.08);
         }
         .repo-name {
@@ -241,20 +261,17 @@
             flex-wrap: wrap;
         }
         .repo-name i {
-            color: #6b6a64;
             font-size: 1.2rem;
         }
         .repo-name a {
             text-decoration: none;
-            color: #1e1e1c;
             border-bottom: 1px solid transparent;
             transition: border 0.2s;
         }
         .repo-name a:hover {
-            border-bottom: 1.5px solid #bcafa0;
+            border-bottom: 1.5px solid;
         }
         .repo-desc {
-            color: #4d4c47;
             font-size: 0.9rem;
             line-height: 1.45;
             margin: 0.7rem 0 1rem;
@@ -267,8 +284,7 @@
             display: flex;
             gap: 1rem;
             font-size: 0.8rem;
-            color: #8a8880;
-            border-top: 1px solid #f0ede8;
+            border-top: 1px solid;
             padding-top: 0.9rem;
             margin-top: 0.5rem;
         }
@@ -287,14 +303,12 @@
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            background: rgba(44, 43, 40, 0.85);
             backdrop-filter: blur(8px);
             border: none;
             width: 40px;
             height: 40px;
             border-radius: 60px;
             cursor: pointer;
-            color: white;
             font-size: 1.2rem;
             transition: 0.2s;
             z-index: 10;
@@ -303,7 +317,6 @@
             justify-content: center;
         }
         .carousel-btn:hover {
-            background: #2c2b28;
             transform: translateY(-50%) scale(1.02);
         }
         .btn-prev {
@@ -322,12 +335,10 @@
             width: 8px;
             height: 8px;
             border-radius: 50%;
-            background: #ccc6bd;
             cursor: pointer;
             transition: 0.2s;
         }
         .dot.active {
-            background: #5a5952;
             width: 24px;
             border-radius: 12px;
         }
@@ -350,13 +361,13 @@
             padding: 0.5rem;
         }
         .gallery-item {
-            background: #ffffff;
             border-radius: 16px;
             overflow: hidden;
-            border: 1px solid #ece7e0;
+            border: 1px solid;
             transition: 0.25s ease;
             aspect-ratio: 1 / 1;
             cursor: pointer;
+            background: rgba(0,0,0,0.02);
         }
         .gallery-item img {
             width: 100%;
@@ -368,9 +379,6 @@
         .gallery-item:hover img {
             transform: scale(1.05);
         }
-        .gallery-item:hover {
-            box-shadow: 0 8px 20px -8px rgba(0,0,0,0.15);
-        }
         .gallery-dots {
             display: flex;
             justify-content: center;
@@ -381,31 +389,27 @@
             width: 8px;
             height: 8px;
             border-radius: 50%;
-            background: #ccc6bd;
             cursor: pointer;
             transition: 0.2s;
         }
         .gallery-dot.active {
-            background: #5a5952;
             width: 24px;
             border-radius: 12px;
         }
 
         .status-message {
-            background: #f0ede8;
             border-radius: 2rem;
             padding: 2rem;
             text-align: center;
-            color: #4c4a44;
             margin: 2rem 0;
         }
         .loader {
             display: inline-block;
             width: 28px;
             height: 28px;
-            border: 2px solid #cbc6bb;
+            border: 2px solid;
             border-radius: 50%;
-            border-top-color: #5a5952;
+            border-top-color: transparent;
             animation: spin 0.7s linear infinite;
             margin-right: 10px;
         }
@@ -417,8 +421,7 @@
             margin-top: 4rem;
             text-align: center;
             font-size: 0.8rem;
-            color: #9b9890;
-            border-top: 1px solid #e2dbd2;
+            border-top: 1px solid;
             padding-top: 2rem;
         }
         @media (max-width: 900px) {
@@ -438,6 +441,11 @@
                 align-items: flex-start;
                 gap: 1rem;
             }
+            .header-actions {
+                margin-top: 0.5rem;
+                width: 100%;
+                justify-content: flex-start;
+            }
             .profile-card {
                 flex-direction: column;
                 align-items: flex-start;
@@ -456,35 +464,43 @@
         a {
             text-decoration: none;
         }
-        .fa, .fas, .far {
-            pointer-events: none;
-        }
     </style>
 </head>
 <body>
 <div class="container">
     <div class="hero">
         <div class="title-group">
-            <h1>浮生栖沙</h1>
-            <div class="tagline">热爱生活，以及生活给予我的一切</div>
+            <h1 id="siteTitle">浮生栖沙</h1>
+            <div class="tagline" id="siteTagline">热爱生活，以及生活给予我的一切</div>
         </div>
-        <a href="https://github.com/Ukiyograin" target="_blank" rel="noopener noreferrer" class="github-badge">
-            <i class="fab fa-github"></i> @Ukiyograin
-            <i class="fas fa-arrow-up-right-from-squares" style="font-size: 0.7rem;"></i>
-        </a>
+        <div class="header-actions">
+            <select id="themeSelect" class="theme-select">
+                <option value="swan-white">天鹅白</option>
+                <option value="quantum-black">量子黑</option>
+                <option value="sand-gold">流沙金</option>
+                <option value="mist-gray">雾霭灰</option>
+            </select>
+            <div class="ctrl-btn" id="langSwitchBtn">
+                <i class="fas fa-globe"></i> <span id="langText">中文</span>
+            </div>
+            <a href="https://github.com/Ukiyograin" target="_blank" rel="noopener noreferrer" class="github-badge" id="githubBadge">
+                <i class="fab fa-github"></i> @Ukiyograin
+                <i class="fas fa-arrow-up-right-from-squares" style="font-size: 0.7rem;"></i>
+            </a>
+        </div>
     </div>
 
     <div id="github-profile-container">
         <div class="status-message" id="loading-placeholder">
             <div style="display: flex; align-items: center; justify-content: center; gap: 12px;">
-                <div class="loader"></div> <span>正在从 GitHub 获取「浮生栖沙」的创作轨迹 ...</span>
+                <div class="loader" id="loadingSpinner"></div> <span id="loadingMsg">正在从 GitHub 获取创作轨迹 ...</span>
             </div>
         </div>
     </div>
 
     <div id="repos-carousel-section" class="carousel-section" style="display: none;">
         <div class="section-title">
-            <span><i class="fas fa-code-branch" style="margin-right: 8px;"></i> 开源项目 · 精选仓库</span>
+            <span><i class="fas fa-code-branch" style="margin-right: 8px;"></i> <span id="reposTitle">开源项目 · 精选仓库</span></span>
             <span class="repo-count" id="repo-count-badge">0 repositories</span>
         </div>
         <div class="carousel-container">
@@ -497,7 +513,7 @@
 
     <div id="gallery-section" class="carousel-section" style="display: none;">
         <div class="section-title">
-            <span><i class="fas fa-images" style="margin-right: 8px;"></i> 精选照片</span>
+            <span><i class="fas fa-images" style="margin-right: 8px;"></i> <span id="galleryTitle">精选照片</span></span>
         </div>
         <div class="gallery-container">
             <div class="gallery-track" id="galleryTrack"></div>
@@ -506,436 +522,573 @@
     </div>
 
     <footer>
-        <i class="fas fa-terminal"></i> 浮生栖沙
-        <span style="margin: 0 8px">✦</span> We found that your request fell into the water.
+        <i class="fas fa-terminal"></i> <span id="footerText">浮生栖沙</span>
+        <span style="margin: 0 8px">✦</span> <span id="footerSub">We found that your request fell into the water.</span>
     </footer>
 </div>
 
 <script>
-    const GITHUB_USERNAME = 'Ukiyograin';
-    const profileContainer = document.getElementById('github-profile-container');
-    const reposCarouselSection = document.getElementById('repos-carousel-section');
-    const carouselTrack = document.getElementById('repoCarouselTrack');
-    const repoPrevBtn = document.getElementById('repoPrevBtn');
-    const repoNextBtn = document.getElementById('repoNextBtn');
-    const repoDots = document.getElementById('repoDots');
-    const repoCountBadge = document.getElementById('repo-count-badge');
-    const gallerySection = document.getElementById('gallery-section');
-    const galleryTrack = document.getElementById('galleryTrack');
-    const galleryDots = document.getElementById('galleryDots');
+    (function(){
+        const GITHUB_USERNAME = 'Ukiyograin';
+        const profileContainer = document.getElementById('github-profile-container');
+        const reposCarouselSection = document.getElementById('repos-carousel-section');
+        const carouselTrack = document.getElementById('repoCarouselTrack');
+        const repoPrevBtn = document.getElementById('repoPrevBtn');
+        const repoNextBtn = document.getElementById('repoNextBtn');
+        const repoDots = document.getElementById('repoDots');
+        const repoCountBadge = document.getElementById('repo-count-badge');
+        const gallerySection = document.getElementById('gallery-section');
+        const galleryTrack = document.getElementById('galleryTrack');
+        const galleryDots = document.getElementById('galleryDots');
 
-    let reposData = [];
-    let currentIndex = 0;
-    let itemsPerView = 3;
-    let autoPlayInterval = null;
-    let isHovering = false;
-    let galleryImages = [];
-    let galleryCurrentPage = 0;
-    let galleryAutoPlayInterval = null;
-    let isGalleryHovering = false;
+        let reposData = [];
+        let currentIndex = 0;
+        let itemsPerView = 3;
+        let autoPlayInterval = null;
+        let isHovering = false;
+        let galleryImages = [];
+        let galleryCurrentPage = 0;
+        let galleryAutoPlayInterval = null;
+        let isGalleryHovering = false;
+        let currentLang = 'zh';
+        let currentTheme = 'swan-white';
 
-    function updateItemsPerView() {
-        if (window.innerWidth <= 700) itemsPerView = 1;
-        else if (window.innerWidth <= 900) itemsPerView = 2;
-        else itemsPerView = 3;
-    }
+        const translations = {
+            zh: {
+                loading: "正在从 GitHub 获取创作轨迹 ...",
+                reposTitle: "开源项目 · 精选仓库",
+                galleryTitle: "精选照片",
+                footerText: "浮生栖沙",
+                footerSub: "We found that your request fell into the water.",
+                siteTitle: "浮生栖沙",
+                tagline: "热爱生活，以及生活给予我的一切",
+                langBtn: "中文",
+                repoCountPrefix: "仓库",
+                noDesc: "无具体描述，但代码本身会说话。",
+                star: "星标",
+                fork: "复刻",
+                updated: "更新",
+                profileFallbackBio: "写代码，也写诗。在比特与流沙之间搭建个人宇宙。",
+                locationFallback: "数字游牧",
+                blogFallback: "个人领域",
+                followersLabel: "追随者",
+                followingLabel: "正在关注",
+                reposLabel: "仓库"
+            },
+            en: {
+                loading: "Fetching creative traces from GitHub ...",
+                reposTitle: "Open Source · Featured Repos",
+                galleryTitle: "Featured Photos",
+                footerText: "Ukiyograin",
+                footerSub: "We found that your request fell into the water.",
+                siteTitle: "Ukiyograin",
+                tagline: "Love life, and all that life gives me",
+                langBtn: "English",
+                repoCountPrefix: "repos",
+                noDesc: "No description, but code speaks for itself.",
+                star: "Stars",
+                fork: "Forks",
+                updated: "Updated",
+                profileFallbackBio: "Coding & poetry. Building a personal universe between bits and drifting sand.",
+                locationFallback: "Digital Nomad",
+                blogFallback: "Personal site",
+                followersLabel: "Followers",
+                followingLabel: "Following",
+                reposLabel: "Repos"
+            }
+        };
 
-    async function fetchJSON(url) {
-        const response = await fetch(url);
-        if (!response.ok) {
-            throw new Error(`HTTP ${response.status}`);
-        }
-        return await response.json();
-    }
+        const themes = {
+            'swan-white': {
+                bgBody: '#f5f4f0',
+                textPrimary: '#1e1e1c',
+                borderLight: '#dcd7cd',
+                cardBg: '#faf9f6',
+                cardBorder: '#e9e3db',
+                accentMuted: '#6b6a64',
+                dotInactive: '#ccc6bd',
+                dotActive: '#5a5952',
+                btnBg: '#2c2b28',
+                btnText: '#f0eee9',
+                statBg: '#ffffff',
+                repoCardBg: '#ffffff',
+                loaderBorder: '#cbc6bb',
+                loaderTop: '#5a5952',
+                selectBg: '#ffffff',
+                selectText: '#1e1e1c',
+                ctrlBg: '#f0ede8',
+                ctrlText: '#1e1e1c',
+                linkColor: '#1e1e1c',
+                linkHover: '#bcafa0'
+            },
+            'quantum-black': {
+                bgBody: '#0a0a0a',
+                textPrimary: '#ffffff',
+                borderLight: '#3a3a3a',
+                cardBg: '#141414',
+                cardBorder: '#3d3d3d',
+                accentMuted: '#e0e0e0',
+                dotInactive: '#5a5a5a',
+                dotActive: '#ffffff',
+                btnBg: '#2a2a2a',
+                btnText: '#ffffff',
+                statBg: '#1e1e1e',
+                repoCardBg: '#1a1a1a',
+                loaderBorder: '#5a5a5a',
+                loaderTop: '#ffffff',
+                selectBg: '#2a2a2a',
+                selectText: '#ffffff',
+                ctrlBg: '#2a2a2a',
+                ctrlText: '#ffffff',
+                linkColor: '#ffffff',
+                linkHover: '#aaaaaa'
+            },
+            'sand-gold': {
+                bgBody: '#fef7e8',
+                textPrimary: '#3e362c',
+                borderLight: '#e2d5bd',
+                cardBg: '#fffaf0',
+                cardBorder: '#e8dbc8',
+                accentMuted: '#a18c6f',
+                dotInactive: '#ddcfb5',
+                dotActive: '#b48c48',
+                btnBg: '#c9ae7b',
+                btnText: '#2c2b28',
+                statBg: '#ffffffd9',
+                repoCardBg: '#ffffff',
+                loaderBorder: '#ddcfb5',
+                loaderTop: '#b48c48',
+                selectBg: '#ffffff',
+                selectText: '#3e362c',
+                ctrlBg: '#fef0df',
+                ctrlText: '#3e362c',
+                linkColor: '#3e362c',
+                linkHover: '#b48c48'
+            },
+            'mist-gray': {
+                bgBody: '#ece9e2',
+                textPrimary: '#2f2e2b',
+                borderLight: '#cfcbc2',
+                cardBg: '#f4f2ef',
+                cardBorder: '#ddd8cf',
+                accentMuted: '#7c7a72',
+                dotInactive: '#bcb7ac',
+                dotActive: '#585650',
+                btnBg: '#5c5a54',
+                btnText: '#f2f0eb',
+                statBg: '#ffffff',
+                repoCardBg: '#ffffff',
+                loaderBorder: '#bcb7ac',
+                loaderTop: '#585650',
+                selectBg: '#ffffff',
+                selectText: '#2f2e2b',
+                ctrlBg: '#e5e0d8',
+                ctrlText: '#2f2e2b',
+                linkColor: '#2f2e2b',
+                linkHover: '#7c7a72'
+            }
+        };
 
-    async function loadGitHubData() {
-        try {
-            const [userData, reposDataRaw, eventsData] = await Promise.all([
-                fetchJSON(`https://api.github.com/users/${GITHUB_USERNAME}`),
-                fetchJSON(`https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=updated&per_page=30&direction=desc`),
-                fetchJSON(`https://api.github.com/users/${GITHUB_USERNAME}/events?per_page=1`)
-            ]);
+        function applyTheme(themeName) {
+            currentTheme = themeName;
+            const t = themes[themeName];
+            if(!t) return;
+            document.body.style.backgroundColor = t.bgBody;
+            document.body.style.color = t.textPrimary;
             
-            const status = getGitHubStatus(eventsData);
-            renderProfileCard(userData, status);
-            reposData = reposDataRaw
-                .sort((a, b) => (b.stargazers_count || 0) - (a.stargazers_count || 0))
-                .slice(0, 10);
+            const heroBorder = document.querySelector('.hero');
+            if(heroBorder) heroBorder.style.borderColor = t.borderLight;
             
-            if (reposData.length > 0) {
-                renderCarousel();
-                reposCarouselSection.style.display = 'block';
-                startAutoPlay();
+            const sectionTitles = document.querySelectorAll('.section-title');
+            sectionTitles.forEach(st => st.style.borderBottomColor = t.borderLight);
+            
+            const profileCards = document.querySelectorAll('.profile-card');
+            profileCards.forEach(card => {
+                card.style.backgroundColor = t.cardBg;
+                card.style.borderColor = t.cardBorder;
+            });
+            
+            const statMinis = document.querySelectorAll('.stats-mini');
+            statMinis.forEach(stat => {
+                stat.style.backgroundColor = t.statBg;
+                stat.style.borderColor = t.cardBorder;
+            });
+            
+            const repoCards = document.querySelectorAll('.repo-carousel-card');
+            repoCards.forEach(card => {
+                card.style.backgroundColor = t.repoCardBg;
+                card.style.borderColor = t.cardBorder;
+            });
+            
+            const repoLinks = document.querySelectorAll('.repo-name a');
+            repoLinks.forEach(link => {
+                link.style.color = t.linkColor;
+            });
+            
+            const dots = document.querySelectorAll('.dot');
+            dots.forEach(dot => {
+                dot.style.backgroundColor = t.dotInactive;
+                if(dot.classList.contains('active')) dot.style.backgroundColor = t.dotActive;
+            });
+            
+            const galleryDotsAll = document.querySelectorAll('.gallery-dot');
+            galleryDotsAll.forEach(dot => {
+                dot.style.backgroundColor = t.dotInactive;
+                if(dot.classList.contains('active')) dot.style.backgroundColor = t.dotActive;
+            });
+            
+            const galleryItems = document.querySelectorAll('.gallery-item');
+            galleryItems.forEach(item => item.style.borderColor = t.cardBorder);
+            
+            const langBtn = document.getElementById('langSwitchBtn');
+            if(langBtn) {
+                langBtn.style.backgroundColor = t.ctrlBg;
+                langBtn.style.color = t.ctrlText;
+                langBtn.style.borderColor = t.borderLight;
             }
             
-            await loadGalleryImages();
+            const themeSelect = document.getElementById('themeSelect');
+            if(themeSelect) {
+                themeSelect.style.backgroundColor = t.selectBg;
+                themeSelect.style.color = t.selectText;
+                themeSelect.style.borderColor = t.borderLight;
+            }
             
-            const loadingPlaceholder = document.getElementById('loading-placeholder');
-            if (loadingPlaceholder) loadingPlaceholder.style.display = 'none';
+            const githubBadge = document.getElementById('githubBadge');
+            if(githubBadge) {
+                githubBadge.style.backgroundColor = t.btnBg;
+                githubBadge.style.color = t.btnText;
+                githubBadge.style.border = 'none';
+            }
             
-        } catch (error) {
-            profileContainer.innerHTML = `
-                <div class="status-message" style="background: #f7f3ef;">
-                    <i class="fas fa-cloud-moon" style="font-size: 1.6rem; margin-bottom: 8px; opacity: 0.7; display: block;"></i>
-                    <strong style="font-weight: 500;">未能连接到 GitHub 数据流</strong><br>
-                    请稍后刷新重试，或访问 <a href="https://github.com/Ukiyograin" target="_blank" style="color: #4c4a44; text-decoration: underline;">github.com/Ukiyograin</a> 直接浏览。
-                    <div style="margin-top: 12px; font-size: 0.8rem;">✨ 浮生栖沙 · 代码未完待续</div>
+            const carouselBtns = document.querySelectorAll('.carousel-btn');
+            carouselBtns.forEach(btn => {
+                btn.style.backgroundColor = t.btnBg;
+                btn.style.color = t.btnText;
+            });
+            
+            const loaderDiv = document.getElementById('loadingSpinner');
+            if(loaderDiv) {
+                loaderDiv.style.borderColor = t.loaderBorder;
+                loaderDiv.style.borderTopColor = t.loaderTop;
+            }
+            
+            const repoCountSpan = document.querySelector('.repo-count');
+            if(repoCountSpan) repoCountSpan.style.backgroundColor = t.dotInactive;
+            
+            const statusMsg = document.querySelector('.status-message');
+            if(statusMsg) statusMsg.style.backgroundColor = t.cardBg;
+            
+            const metaLinks = document.querySelectorAll('.profile-meta a');
+            metaLinks.forEach(link => {
+                link.style.color = t.accentMuted;
+            });
+        }
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            const t = translations[lang];
+            document.getElementById('siteTitle').innerText = t.siteTitle;
+            document.getElementById('siteTagline').innerText = t.tagline;
+            document.getElementById('langText').innerText = t.langBtn;
+            if(document.getElementById('loadingMsg')) document.getElementById('loadingMsg').innerText = t.loading;
+            if(document.getElementById('reposTitle')) document.getElementById('reposTitle').innerText = t.reposTitle;
+            if(document.getElementById('galleryTitle')) document.getElementById('galleryTitle').innerText = t.galleryTitle;
+            document.getElementById('footerText').innerText = t.footerText;
+            document.getElementById('footerSub').innerText = t.footerSub;
+            if(repoCountBadge && reposData.length) repoCountBadge.innerText = `${reposData.length} ${t.repoCountPrefix}`;
+            if(window._currentUserData) {
+                renderProfileCard(window._currentUserData, window._currentStatus);
+            }
+            if(reposData.length) renderCarouselTrack();
+        }
+
+        function updateItemsPerView() {
+            if(window.innerWidth <= 700) itemsPerView = 1;
+            else if(window.innerWidth <= 900) itemsPerView = 2;
+            else itemsPerView = 3;
+        }
+
+        async function fetchJSON(url) {
+            const res = await fetch(url);
+            if(!res.ok) throw new Error(`HTTP ${res.status}`);
+            return await res.json();
+        }
+
+        async function loadGitHubData() {
+            try {
+                const [userData, reposDataRaw, eventsData] = await Promise.all([
+                    fetchJSON(`https://api.github.com/users/${GITHUB_USERNAME}`),
+                    fetchJSON(`https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=updated&per_page=30&direction=desc`),
+                    fetchJSON(`https://api.github.com/users/${GITHUB_USERNAME}/events?per_page=1`)
+                ]);
+                const status = getGitHubStatus(eventsData);
+                window._currentUserData = userData;
+                window._currentStatus = status;
+                renderProfileCard(userData, status);
+                reposData = reposDataRaw.sort((a,b)=> (b.stargazers_count||0)-(a.stargazers_count||0)).slice(0,10);
+                if(reposData.length) {
+                    renderCarousel();
+                    reposCarouselSection.style.display = 'block';
+                    startAutoPlay();
+                }
+                const loadingPlaceholder = document.getElementById('loading-placeholder');
+                if(loadingPlaceholder) loadingPlaceholder.style.display = 'none';
+                if('requestIdleCallback' in window) requestIdleCallback(()=> loadGalleryOptimized(), { timeout: 2000 });
+                else setTimeout(()=> loadGalleryOptimized(), 300);
+            } catch(e) {
+                profileContainer.innerHTML = `<div class="status-message"><i class="fas fa-cloud-moon"></i> 无法获取GitHub数据，请刷新重试。</div>`;
+                const loadingElem = document.getElementById('loading-placeholder');
+                if(loadingElem) loadingElem.style.display = 'none';
+                reposCarouselSection.style.display = 'none';
+            }
+        }
+
+        function getGitHubStatus(events) {
+            if(!events || !events.length) return 'offline';
+            const lastTime = new Date(events[0].created_at);
+            const diff = (new Date() - lastTime)/(1000*3600);
+            if(diff<2) return 'active';
+            if(diff<24) return 'idle';
+            return 'offline';
+        }
+
+        function renderProfileCard(user, status) {
+            if(!user) return;
+            const t = translations[currentLang];
+            const displayName = user.name || user.login;
+            let bioText = (user.bio && user.bio.trim()) ? user.bio : t.profileFallbackBio;
+            const avatarUrl = user.avatar_url;
+            const followers = user.followers ?? 0;
+            const following = user.following ?? 0;
+            const publicRepos = user.public_repos ?? 0;
+            const statusIcon = status==='active'?'💻':(status==='idle'?'🌙':'💤');
+            const statusTitle = status==='active'?(currentLang==='zh'?'活跃编码中':'Active'):(status==='idle'?(currentLang==='zh'?'最近休息中':'Idle'):(currentLang==='zh'?'离线':'Offline'));
+            const theme = themes[currentTheme];
+            const profileHtml = `
+                <div class="profile-card" style="background:${theme.cardBg}; border-color:${theme.cardBorder};">
+                    <div class="profile-info">
+                        <div class="avatar-wrapper">
+                            <img class="avatar" src="${avatarUrl}" alt="avatar" style="border-color:${theme.borderLight};">
+                            <div class="status-indicator ${status}" title="${statusTitle}">${statusIcon}</div>
+                        </div>
+                        <div class="profile-text">
+                            <h2>${escapeHtml(displayName)} <span style="font-weight:400; font-size:1rem;">· ${currentLang==='zh'?'浮生栖沙':'Ukiyograin'}</span></h2>
+                            <div class="profile-bio">${escapeHtml(bioText)}</div>
+                            <div class="profile-meta">
+                                <span><i class="fas fa-map-marker-alt"></i> ${escapeHtml(user.location || t.locationFallback)}</span>
+                                <span><i class="fas fa-link"></i> <a href="${user.blog && user.blog.startsWith('http')?user.blog:'#'}" target="_blank" style="color:${theme.accentMuted};">${user.blog ? truncateUrl(user.blog) : t.blogFallback}</a></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="stats-mini" style="background:${theme.statBg}; border-color:${theme.cardBorder};">
+                        <div><div class="stats-number">${publicRepos}</div><div class="stats-label">${t.reposLabel}</div></div>
+                        <div><div class="stats-number">${followers}</div><div class="stats-label">${t.followersLabel}</div></div>
+                        <div><div class="stats-number">${following}</div><div class="stats-label">${t.followingLabel}</div></div>
+                    </div>
                 </div>
             `;
-            const loadingElem = document.getElementById('loading-placeholder');
-            if (loadingElem) loadingElem.style.display = 'none';
-            reposCarouselSection.style.display = 'none';
+            profileContainer.innerHTML = profileHtml;
         }
-    }
 
-    function getGitHubStatus(events) {
-        if (!events || events.length === 0) return 'offline';
-        const lastEvent = events[0];
-        const lastEventTime = new Date(lastEvent.created_at);
-        const now = new Date();
-        const hoursDiff = (now - lastEventTime) / (1000 * 60 * 60);
-        if (hoursDiff < 2) return 'active';
-        if (hoursDiff < 24) return 'idle';
-        return 'offline';
-    }
-
-    function renderProfileCard(user, status) {
-        if (!user) return;
-        const displayName = user.name || user.login;
-        let bioText = user.bio;
-        if (!bioText || bioText.trim() === '') {
-            bioText = '写代码，也写诗。在比特与流沙之间搭建个人宇宙。';
-        }
-        const avatarUrl = user.avatar_url;
-        const followers = user.followers ?? 0;
-        const following = user.following ?? 0;
-        const publicRepos = user.public_repos ?? 0;
-        
-        const statusIcon = status === 'active' ? '💻' : (status === 'idle' ? '🌙' : '💤');
-        const statusTitle = status === 'active' ? '活跃编码中' : (status === 'idle' ? '最近休息中' : '最近未活跃');
-        
-        const profileHtml = `
-            <div class="profile-card">
-                <div class="profile-info">
-                    <div class="avatar-wrapper">
-                        <img class="avatar" src="${avatarUrl}" alt="avatar" onerror="this.src='https://via.placeholder.com/80?text=GS'">
-                        <div class="status-indicator ${status}" title="${statusTitle} ${statusIcon}">
-                            ${statusIcon}
-                        </div>
-                    </div>
-                    <div class="profile-text">
-                        <h2>${escapeHtml(displayName)} <span style="font-weight: 400; font-size: 1rem; color:#9b9890;">· 浮生栖沙</span></h2>
-                        <div class="profile-bio">${escapeHtml(bioText)}</div>
-                        <div class="profile-meta">
-                            <span><i class="fas fa-map-marker-alt"></i> ${escapeHtml(user.location || '数字游牧')}</span>
-                            <span><i class="fas fa-link"></i> <a href="${user.blog && user.blog.startsWith('http') ? user.blog : '#'}" target="_blank" style="color:#5f5e58; border-bottom:1px solid #ddd;">${user.blog ? truncateUrl(user.blog) : '个人领域'}</a></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="stats-mini">
-                    <div><div class="stats-number">${publicRepos}</div><div class="stats-label">仓库</div></div>
-                    <div><div class="stats-number">${followers}</div><div class="stats-label">追随者</div></div>
-                    <div><div class="stats-number">${following}</div><div class="stats-label">正在关注</div></div>
-                </div>
-            </div>
-        `;
-        profileContainer.innerHTML = profileHtml;
-    }
-
-    function startAutoPlay() {
-        if (autoPlayInterval) clearInterval(autoPlayInterval);
-        autoPlayInterval = setInterval(() => {
-            if (!isHovering && reposData.length > 0) {
-                const maxIndex = Math.max(0, reposData.length - itemsPerView);
-                if (currentIndex < maxIndex) {
-                    currentIndex++;
-                    updateCarousel();
-                } else {
-                    currentIndex = 0;
+        function startAutoPlay() {
+            if(autoPlayInterval) clearInterval(autoPlayInterval);
+            autoPlayInterval = setInterval(()=>{
+                if(!isHovering && reposData.length){
+                    const maxIdx = Math.max(0, reposData.length - itemsPerView);
+                    currentIndex = currentIndex < maxIdx ? currentIndex+1 : 0;
                     updateCarousel();
                 }
-            }
-        }, 4000);
-    }
-
-    function stopAutoPlay() {
-        if (autoPlayInterval) {
-            clearInterval(autoPlayInterval);
-            autoPlayInterval = null;
+            }, 4000);
         }
-    }
+        function stopAutoPlay() { if(autoPlayInterval) clearInterval(autoPlayInterval); autoPlayInterval=null; }
 
-    function startGalleryAutoPlay() {
-        if (galleryAutoPlayInterval) clearInterval(galleryAutoPlayInterval);
-        if (galleryImages.length === 0) return;
-        const totalPages = Math.ceil(galleryImages.length / 9);
-        if (totalPages <= 1) return;
-        
-        galleryAutoPlayInterval = setInterval(() => {
-            if (!isGalleryHovering) {
-                const totalPages = Math.ceil(galleryImages.length / 9);
-                if (galleryCurrentPage < totalPages - 1) {
-                    galleryCurrentPage++;
-                } else {
-                    galleryCurrentPage = 0;
-                }
-                updateGallery();
-            }
-        }, 5000);
-    }
-
-    function stopGalleryAutoPlay() {
-        if (galleryAutoPlayInterval) {
-            clearInterval(galleryAutoPlayInterval);
-            galleryAutoPlayInterval = null;
-        }
-    }
-
-    function renderCarousel() {
-        if (!reposData.length) return;
-        repoCountBadge.innerText = `${reposData.length} repositories`;
-        updateItemsPerView();
-        renderCarouselTrack();
-        renderDots();
-        updateCarousel();
-        
-        const carouselContainer = document.querySelector('.carousel-container');
-        if (carouselContainer) {
-            carouselContainer.addEventListener('mouseenter', () => {
-                isHovering = true;
-                stopAutoPlay();
-            });
-            carouselContainer.addEventListener('mouseleave', () => {
-                isHovering = false;
-                startAutoPlay();
-            });
-        }
-        
-        window.addEventListener('resize', () => {
+        function renderCarousel() {
+            if(!reposData.length) return;
+            repoCountBadge.innerText = `${reposData.length} ${translations[currentLang].repoCountPrefix}`;
             updateItemsPerView();
             renderCarouselTrack();
             renderDots();
-            currentIndex = 0;
             updateCarousel();
-            stopAutoPlay();
-            startAutoPlay();
-        });
-        
-        repoPrevBtn.addEventListener('click', () => {
-            stopAutoPlay();
-            const maxIndex = Math.max(0, reposData.length - itemsPerView);
-            if (currentIndex > 0) {
-                currentIndex--;
-                updateCarousel();
-            } else {
-                currentIndex = maxIndex;
-                updateCarousel();
+            const container = document.querySelector('.carousel-container');
+            if(container){
+                container.addEventListener('mouseenter',()=>{ isHovering=true; stopAutoPlay(); });
+                container.addEventListener('mouseleave',()=>{ isHovering=false; startAutoPlay(); });
             }
-            startAutoPlay();
-        });
-        
-        repoNextBtn.addEventListener('click', () => {
-            stopAutoPlay();
-            const maxIndex = Math.max(0, reposData.length - itemsPerView);
-            if (currentIndex < maxIndex) {
-                currentIndex++;
+            window.addEventListener('resize',()=>{
+                updateItemsPerView();
+                renderCarouselTrack();
+                renderDots();
+                currentIndex=0;
                 updateCarousel();
-            } else {
-                currentIndex = 0;
-                updateCarousel();
-            }
-            startAutoPlay();
-        });
-    }
-    
-    function renderCarouselTrack() {
-        carouselTrack.innerHTML = '';
-        const langColorMap = {
-            'JavaScript': '#e6b450', 'TypeScript': '#2d7a6e', 'HTML': '#cf6f2e',
-            'CSS': '#3d6b7c', 'Python': '#4f7e6b', 'Java': '#b0723b',
-            'Go': '#4c9b8f', 'Rust': '#b26b3a', 'Vue': '#4d7c6b',
-            'React': '#467c7a', 'Shell': '#7c7a58', 'default': '#9b958b'
-        };
-        
-        reposData.forEach(repo => {
-            const language = repo.language;
-            const langColor = langColorMap[language] || langColorMap['default'];
-            const langColorStyle = language ? `<span class="lang-color" style="background-color: ${langColor};"></span> ${escapeHtml(language)}` : '';
-            const updatedAt = repo.updated_at ? new Date(repo.updated_at).toLocaleDateString('zh-CN', { year:'numeric', month:'short', day:'numeric' }) : '近期';
-            
-            const card = document.createElement('div');
-            card.className = 'repo-carousel-card';
-            card.innerHTML = `
-                <div class="repo-name">
-                    <i class="fab fa-github-alt"></i>
-                    <a href="${repo.html_url}" target="_blank" rel="noopener noreferrer">${escapeHtml(repo.name)}</a>
-                </div>
-                <div class="repo-desc">${escapeHtml(repo.description || '无具体描述，但代码本身会说话。')}</div>
-                <div class="repo-meta">
-                    ${language ? `<span>${langColorStyle}</span>` : ''}
-                    <span><i class="far fa-star"></i> ${repo.stargazers_count ?? 0}</span>
-                    <span><i class="fas fa-code-branch"></i> ${repo.forks_count ?? 0}</span>
-                    <span><i class="far fa-calendar-alt"></i> ${updatedAt}</span>
-                </div>
-            `;
-            carouselTrack.appendChild(card);
-        });
-    }
-    
-    function renderDots() {
-        const totalDots = Math.max(1, reposData.length - itemsPerView + 1);
-        repoDots.innerHTML = '';
-        for (let i = 0; i < totalDots; i++) {
-            const dot = document.createElement('div');
-            dot.classList.add('dot');
-            dot.addEventListener('click', () => {
-                stopAutoPlay();
-                currentIndex = i;
-                updateCarousel();
-                startAutoPlay();
+                stopAutoPlay(); startAutoPlay();
             });
-            repoDots.appendChild(dot);
+            repoPrevBtn.onclick = ()=>{ stopAutoPlay(); const maxI = Math.max(0, reposData.length-itemsPerView); currentIndex = currentIndex>0?currentIndex-1:maxI; updateCarousel(); startAutoPlay(); };
+            repoNextBtn.onclick = ()=>{ stopAutoPlay(); const maxI = Math.max(0, reposData.length-itemsPerView); currentIndex = currentIndex<maxI?currentIndex+1:0; updateCarousel(); startAutoPlay(); };
         }
-    }
-    
-    function updateCarousel() {
-        const cardWidth = carouselTrack.children[0]?.offsetWidth || 0;
-        const trackGap = parseFloat(getComputedStyle(carouselTrack).gap) || 24;
-        const offset = currentIndex * (cardWidth + trackGap);
-        carouselTrack.style.transform = `translateX(-${offset}px)`;
-        
-        const dots = document.querySelectorAll('#repoDots .dot');
-        dots.forEach((dot, idx) => {
-            if (idx === currentIndex) dot.classList.add('active');
-            else dot.classList.remove('active');
-        });
-    }
 
-    async function loadGalleryImages() {
-        const extensions = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
-        const loadedImages = [];
-        
-        for (let i = 1; i <= 50; i++) {
-            for (const ext of extensions) {
-                const imgPath = `pictures/${i}.${ext}`;
-                const exists = await imageExists(imgPath);
-                if (exists) {
-                    loadedImages.push(imgPath);
-                    break;
+        function renderCarouselTrack() {
+            carouselTrack.innerHTML = '';
+            const t = translations[currentLang];
+            const theme = themes[currentTheme];
+            const langColorMap = { 'JavaScript':'#e6b450','TypeScript':'#2d7a6e','HTML':'#cf6f2e','CSS':'#3d6b7c','Python':'#4f7e6b','Java':'#b0723b','Go':'#4c9b8f','Rust':'#b26b3a','Vue':'#4d7c6b','React':'#467c7a','Shell':'#7c7a58','default':'#9b958b' };
+            reposData.forEach(repo=>{
+                const lang = repo.language;
+                const langColor = langColorMap[lang] || langColorMap.default;
+                const langSpan = lang ? `<span class="lang-color" style="background-color:${langColor};"></span> ${escapeHtml(lang)}` : '';
+                const updated = repo.updated_at ? new Date(repo.updated_at).toLocaleDateString(currentLang==='zh'?'zh-CN':'en-US',{year:'numeric',month:'short',day:'numeric'}) : (currentLang==='zh'?'近期':'recent');
+                const card = document.createElement('div');
+                card.className = 'repo-carousel-card';
+                card.style.backgroundColor = theme.repoCardBg;
+                card.style.borderColor = theme.cardBorder;
+                card.innerHTML = `
+                    <div class="repo-name"><i class="fab fa-github-alt"></i><a href="${repo.html_url}" target="_blank" style="color:${theme.linkColor};">${escapeHtml(repo.name)}</a></div>
+                    <div class="repo-desc" style="color:${theme.accentMuted};">${escapeHtml(repo.description || t.noDesc)}</div>
+                    <div class="repo-meta" style="border-top-color:${theme.borderLight}; color:${theme.accentMuted};">
+                        ${lang ? `<span>${langSpan}</span>` : ''}
+                        <span><i class="far fa-star"></i> ${repo.stargazers_count ?? 0}</span>
+                        <span><i class="fas fa-code-branch"></i> ${repo.forks_count ?? 0}</span>
+                        <span><i class="far fa-calendar-alt"></i> ${updated}</span>
+                    </div>
+                `;
+                carouselTrack.appendChild(card);
+            });
+        }
+
+        function renderDots() {
+            const total = Math.max(1, reposData.length - itemsPerView + 1);
+            repoDots.innerHTML = '';
+            for(let i=0;i<total;i++){
+                const dot = document.createElement('div');
+                dot.classList.add('dot');
+                dot.style.backgroundColor = themes[currentTheme].dotInactive;
+                dot.addEventListener('click',()=>{ stopAutoPlay(); currentIndex=i; updateCarousel(); startAutoPlay(); });
+                repoDots.appendChild(dot);
+            }
+        }
+
+        function updateCarousel() {
+            const firstCard = carouselTrack.children[0];
+            if(!firstCard) return;
+            const cardWidth = firstCard.offsetWidth;
+            const gap = parseFloat(getComputedStyle(carouselTrack).gap) || 24;
+            carouselTrack.style.transform = `translateX(-${currentIndex * (cardWidth + gap)}px)`;
+            const dots = document.querySelectorAll('#repoDots .dot');
+            dots.forEach((dot,idx)=> {
+                if(idx===currentIndex) { dot.classList.add('active'); dot.style.backgroundColor = themes[currentTheme].dotActive; dot.style.width='24px'; }
+                else { dot.classList.remove('active'); dot.style.backgroundColor = themes[currentTheme].dotInactive; dot.style.width='8px'; }
+            });
+        }
+
+        async function loadGalleryOptimized() {
+            const maxCheck = 35;
+            const exts = ['jpg','jpeg','png','webp'];
+            const found = [];
+            for(let i=1;i<=maxCheck;i++){
+                let got=false;
+                for(const ext of exts){
+                    const url = `pictures/${i}.${ext}`;
+                    const exists = await imageExistsFast(url);
+                    if(exists){ found.push(url); got=true; break; }
                 }
+                if(!got && i>12 && found.length===0) break;
+            }
+            if(found.length===0){ gallerySection.style.display='none'; return; }
+            galleryImages = found;
+            gallerySection.style.display='block';
+            renderGalleryLazy();
+            startGalleryAutoPlay();
+            const gContainer = document.querySelector('.gallery-container');
+            if(gContainer){
+                gContainer.addEventListener('mouseenter',()=>{ isGalleryHovering=true; stopGalleryAutoPlay(); });
+                gContainer.addEventListener('mouseleave',()=>{ isGalleryHovering=false; startGalleryAutoPlay(); });
             }
         }
-        
-        if (loadedImages.length === 0) {
-            gallerySection.style.display = 'none';
-            return;
-        }
-        
-        galleryImages = loadedImages;
-        gallerySection.style.display = 'block';
-        renderGallery();
-        startGalleryAutoPlay();
-        
-        const galleryContainer = document.querySelector('.gallery-container');
-        if (galleryContainer) {
-            galleryContainer.addEventListener('mouseenter', () => {
-                isGalleryHovering = true;
-                stopGalleryAutoPlay();
-            });
-            galleryContainer.addEventListener('mouseleave', () => {
-                isGalleryHovering = false;
-                startGalleryAutoPlay();
+
+        function imageExistsFast(url){
+            return new Promise(resolve=>{
+                const img=new Image();
+                img.onload=()=>resolve(true);
+                img.onerror=()=>resolve(false);
+                img.src=url;
             });
         }
-    }
-    
-    function imageExists(url) {
-        return new Promise((resolve) => {
-            const img = new Image();
-            img.onload = () => resolve(true);
-            img.onerror = () => resolve(false);
-            img.src = url;
-        });
-    }
-    
-    function renderGallery() {
-        const itemsPerPage = 9;
-        const totalPages = Math.ceil(galleryImages.length / itemsPerPage);
-        galleryTrack.innerHTML = '';
-        
-        for (let page = 0; page < totalPages; page++) {
-            const pageDiv = document.createElement('div');
-            pageDiv.className = 'gallery-page';
-            
-            const start = page * itemsPerPage;
-            const end = Math.min(start + itemsPerPage, galleryImages.length);
-            
-            for (let i = start; i < end; i++) {
-                const imgPath = galleryImages[i];
-                const fileName = imgPath.split('/').pop();
-                const altText = `照片 ${fileName}`;
-                const galleryItem = document.createElement('div');
-                galleryItem.className = 'gallery-item';
-                galleryItem.innerHTML = `<img src="${imgPath}" alt="${escapeHtml(altText)}" loading="lazy">`;
-                pageDiv.appendChild(galleryItem);
+
+        function renderGalleryLazy(){
+            const perPage=9;
+            const totalPages=Math.ceil(galleryImages.length/perPage);
+            galleryTrack.innerHTML='';
+            for(let p=0;p<totalPages;p++){
+                const pageDiv=document.createElement('div');
+                pageDiv.className='gallery-page';
+                const start=p*perPage;
+                const end=Math.min(start+perPage,galleryImages.length);
+                for(let i=start;i<end;i++){
+                    const item=document.createElement('div');
+                    item.className='gallery-item';
+                    item.style.borderColor=themes[currentTheme].cardBorder;
+                    const img=document.createElement('img');
+                    img.loading='lazy';
+                    img.src=galleryImages[i];
+                    item.appendChild(img);
+                    pageDiv.appendChild(item);
+                }
+                galleryTrack.appendChild(pageDiv);
             }
-            
-            galleryTrack.appendChild(pageDiv);
+            if(totalPages>1){
+                galleryDots.style.display='flex';
+                galleryDots.innerHTML='';
+                for(let i=0;i<totalPages;i++){
+                    const dot=document.createElement('div');
+                    dot.classList.add('gallery-dot');
+                    dot.style.backgroundColor=themes[currentTheme].dotInactive;
+                    dot.addEventListener('click',()=>{ stopGalleryAutoPlay(); galleryCurrentPage=i; updateGallery(); startGalleryAutoPlay(); });
+                    galleryDots.appendChild(dot);
+                }
+            } else galleryDots.style.display='none';
+            updateGallery();
         }
-        
-        if (totalPages > 1) {
-            renderGalleryDots(totalPages);
-        } else {
-            galleryDots.style.display = 'none';
-        }
-        
-        updateGallery();
-    }
-    
-    function renderGalleryDots(totalPages) {
-        galleryDots.style.display = 'flex';
-        galleryDots.innerHTML = '';
-        for (let i = 0; i < totalPages; i++) {
-            const dot = document.createElement('div');
-            dot.classList.add('gallery-dot');
-            dot.addEventListener('click', () => {
-                stopGalleryAutoPlay();
-                galleryCurrentPage = i;
-                updateGallery();
-                startGalleryAutoPlay();
+
+        function updateGallery(){
+            const pageWidth = galleryTrack.children[0]?.offsetWidth || 0;
+            galleryTrack.style.transform = `translateX(-${galleryCurrentPage * pageWidth}px)`;
+            const dots = document.querySelectorAll('.gallery-dot');
+            dots.forEach((dot,idx)=>{
+                if(idx===galleryCurrentPage){
+                    dot.classList.add('active');
+                    dot.style.backgroundColor=themes[currentTheme].dotActive;
+                    dot.style.width='24px';
+                } else {
+                    dot.classList.remove('active');
+                    dot.style.backgroundColor=themes[currentTheme].dotInactive;
+                    dot.style.width='8px';
+                }
             });
-            galleryDots.appendChild(dot);
         }
-    }
-    
-    function updateGallery() {
-        const pageWidth = galleryTrack.children[0]?.offsetWidth || 0;
-        const offset = galleryCurrentPage * pageWidth;
-        galleryTrack.style.transform = `translateX(-${offset}px)`;
-        
-        const dots = document.querySelectorAll('.gallery-dot');
-        dots.forEach((dot, idx) => {
-            if (idx === galleryCurrentPage) dot.classList.add('active');
-            else dot.classList.remove('active');
-        });
-    }
-    
-    function escapeHtml(str) {
-        if (!str) return '';
-        return str.replace(/[&<>]/g, function(m) {
-            if (m === '&') return '&amp;';
-            if (m === '<') return '&lt;';
-            if (m === '>') return '&gt;';
-            return m;
-        });
-    }
-    
-    function truncateUrl(url) {
-        if (!url) return '';
-        return url.length > 30 ? url.substring(0, 27) + '...' : url;
-    }
-    
-    loadGitHubData();
+
+        function startGalleryAutoPlay(){
+            if(galleryAutoPlayInterval) clearInterval(galleryAutoPlayInterval);
+            if(!galleryImages.length) return;
+            const total=Math.ceil(galleryImages.length/9);
+            if(total<=1) return;
+            galleryAutoPlayInterval = setInterval(()=>{
+                if(!isGalleryHovering){
+                    const tot=Math.ceil(galleryImages.length/9);
+                    galleryCurrentPage = (galleryCurrentPage+1)%tot;
+                    updateGallery();
+                }
+            },5000);
+        }
+        function stopGalleryAutoPlay(){ if(galleryAutoPlayInterval) clearInterval(galleryAutoPlayInterval); galleryAutoPlayInterval=null; }
+
+        function escapeHtml(str){ if(!str) return ''; return str.replace(/[&<>]/g, m=> ({'&':'&amp;','<':'&lt;','>':'&gt;'}[m])); }
+        function truncateUrl(url){ return url.length>30 ? url.substring(0,27)+'...' : url; }
+
+        document.getElementById('themeSelect').addEventListener('change',(e)=> applyTheme(e.target.value));
+        document.getElementById('langSwitchBtn').addEventListener('click',()=> setLanguage(currentLang==='zh'?'en':'zh'));
+        applyTheme('swan-white');
+        loadGitHubData();
+    })();
 </script>
 </body>
 </html>
