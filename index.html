@@ -2,7 +2,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>浮生栖沙 · 流沙与代码之间</title>
+    <title>浮生栖沙 []~(￣▽￣)~*干杯~</title>
     <link rel="icon" type="image/jpeg" href="icon/icon.jpg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -343,7 +343,6 @@
             border-radius: 12px;
         }
 
-        /* 一行式横向滚动图片栏 - 无限轮播 */
         .marquee-section {
             margin: 2rem 0 3rem;
         }
@@ -418,6 +417,78 @@
             border-top: 1px solid;
             padding-top: 2rem;
         }
+        
+        .lightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.92);
+            backdrop-filter: blur(12px);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.25s ease, visibility 0.25s ease;
+        }
+        .lightbox.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .lightbox img {
+            max-width: 90vw;
+            max-height: 90vh;
+            object-fit: contain;
+            border-radius: 16px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            animation: lightboxFadeIn 0.3s ease;
+        }
+        @keyframes lightboxFadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.96);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        .lightbox-close {
+            position: absolute;
+            top: 24px;
+            right: 32px;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(4px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+        }
+        .lightbox-close:hover {
+            background: rgba(255,255,255,0.3);
+            transform: scale(1.05);
+        }
+        @media (max-width: 700px) {
+            .lightbox-close {
+                top: 16px;
+                right: 20px;
+                width: 36px;
+                height: 36px;
+                font-size: 22px;
+            }
+        }
+
         @media (max-width: 900px) {
             .repo-carousel-card {
                 flex: 0 0 calc(50% - 0.75rem);
@@ -458,7 +529,7 @@
 <div class="container">
     <div class="hero">
         <div class="title-group">
-            <h1 id="siteTitle">浮生栖沙</h1>
+            <h1 id="siteTitle">我们终将遇见爱与孤独</h1>
             <div class="tagline" id="siteTagline">热爱生活，以及生活给予我的一切</div>
         </div>
         <div class="header-actions">
@@ -488,7 +559,7 @@
 
     <div id="repos-carousel-section" class="carousel-section" style="display: none;">
         <div class="section-title">
-            <span><i class="fas fa-code-branch" style="margin-right: 8px;"></i> <span id="reposTitle">开源项目 · 精选仓库</span></span>
+            <span><i class="fas fa-code-branch" style="margin-right: 8px;"></i> <span id="reposTitle">开源项目</span></span>
             <span class="repo-count" id="repo-count-badge">0 repositories</span>
         </div>
         <div class="carousel-container">
@@ -499,10 +570,9 @@
         <div class="carousel-dots" id="repoDots"></div>
     </div>
 
-    <!-- 一行式无限滚动图片栏 -->
     <div id="marquee-section" class="marquee-section" style="display: none;">
         <div class="section-title">
-            <span><i class="fas fa-images" style="margin-right: 8px;"></i> <span id="galleryTitle">精选照片 · 横向漫游</span></span>
+            <span><i class="fas fa-images" style="margin-right: 8px;"></i> <span id="galleryTitle">精选照片</span></span>
         </div>
         <div class="marquee-wrapper">
             <div class="marquee-track" id="marqueeTrack"></div>
@@ -513,6 +583,11 @@
         <i class="fas fa-terminal"></i> <span id="footerText">浮生栖沙</span>
         <span style="margin: 0 8px">✦</span> <span id="footerSub">We found that your request fell into the water.</span>
     </footer>
+</div>
+
+<div id="lightbox" class="lightbox">
+    <div class="lightbox-close"><i class="fas fa-times"></i></div>
+    <img id="lightboxImg" src="" alt="预览大图">
 </div>
 
 <script>
@@ -544,14 +619,39 @@
         let marqueeTotalWidth = 0;
         let marqueeContainerWidth = 0;
 
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightboxImg');
+
+        function openLightbox(imgSrc) {
+            lightboxImg.src = imgSrc;
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox || e.target.classList.contains('lightbox-close')) {
+                closeLightbox();
+            }
+        });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+                closeLightbox();
+            }
+        });
+
         const translations = {
             zh: {
                 loading: "正在从 GitHub 获取创作轨迹 ...",
-                reposTitle: "开源项目 · 精选仓库",
-                galleryTitle: "精选照片 · 横向漫游",
+                reposTitle: "开源项目",
+                galleryTitle: "精选照片",
                 footerText: "浮生栖沙",
                 footerSub: "We found that your request fell into the water.",
-                siteTitle: "浮生栖沙",
+                siteTitle: "浮生栖沙 []~(￣▽￣)~*干杯~",
                 tagline: "热爱生活，以及生活给予我的一切",
                 langBtn: "中文",
                 repoCountPrefix: "仓库",
@@ -561,18 +661,18 @@
                 updated: "更新",
                 profileFallbackBio: "写代码，也写诗。在比特与流沙之间搭建个人宇宙。",
                 locationFallback: "数字游牧",
-                blogFallback: "个人领域",
+                blogFallback: "主页",
                 followersLabel: "追随者",
                 followingLabel: "正在关注",
                 reposLabel: "仓库"
             },
             en: {
                 loading: "Fetching creative traces from GitHub ...",
-                reposTitle: "Open Source · Featured Repos",
-                galleryTitle: "Featured Photos · Horizontal Scroll",
+                reposTitle: "Open Source Projects",
+                galleryTitle: "Featured Photos",
                 footerText: "Ukiyograin",
                 footerSub: "We found that your request fell into the water.",
-                siteTitle: "Ukiyograin",
+                siteTitle: "Ukiyograin []~(￣▽￣)~* Cheers~",
                 tagline: "Love life, and all that life gives me",
                 langBtn: "English",
                 repoCountPrefix: "repos",
@@ -582,7 +682,7 @@
                 updated: "Updated",
                 profileFallbackBio: "Coding & poetry. Building a personal universe between bits and drifting sand.",
                 locationFallback: "Digital Nomad",
-                blogFallback: "Personal site",
+                blogFallback: "Homepage",
                 followersLabel: "Followers",
                 followingLabel: "Following",
                 reposLabel: "Repos"
@@ -853,7 +953,7 @@
                             <div class="status-indicator ${status}" title="${statusTitle}">${statusIcon}</div>
                         </div>
                         <div class="profile-text">
-                            <h2>${escapeHtml(displayName)} <span style="font-weight:400; font-size:1rem;">· ${currentLang==='zh'?'浮生栖沙':'Ukiyograin'}</span></h2>
+                            <h2>${escapeHtml(displayName)} <span style="font-weight:400; font-size:1rem;">· Ukiyograin</span></h2>
                             <div class="profile-bio">${escapeHtml(bioText)}</div>
                             <div class="profile-meta">
                                 <span><i class="fas fa-map-marker-alt"></i> ${escapeHtml(user.location || t.locationFallback)}</span>
@@ -998,6 +1098,10 @@
                 img.loading = 'lazy';
                 img.src = imgSrc;
                 img.alt = `Gallery ${idx+1}`;
+                img.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    openLightbox(imgSrc);
+                });
                 item.appendChild(img);
                 marqueeTrack.appendChild(item);
             });
