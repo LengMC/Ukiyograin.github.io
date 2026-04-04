@@ -970,87 +970,99 @@
             loadSnakeSvg();
         }
 
-        // ==================== 语言切换 ====================
-        function updateThemeSelectLabels() {
-            const texts = TEXTS[currentLang];
-            if (!dom.themeSelect || !texts.themeNames) return;
-            Array.from(dom.themeSelect.options).forEach(option => {
-                const themeKey = option.value;
-                if (texts.themeNames[themeKey]) {
-                    option.textContent = texts.themeNames[themeKey];
-                }
-            });
+ // ==================== 语言切换 ====================
+function updateThemeSelectLabels() {
+    const texts = TEXTS[currentLang];
+    if (!dom.themeSelect || !texts.themeNames) return;
+    Array.from(dom.themeSelect.options).forEach(option => {
+        const themeKey = option.value;
+        if (texts.themeNames[themeKey]) {
+            option.textContent = texts.themeNames[themeKey];
         }
+    });
+}
 
-        function setLanguage(lang, save = true) {
-            currentLang = lang;
-            const t = TEXTS[lang];
-            
-            // 更新页面文本
-            if (dom.siteTitle) dom.siteTitle.innerText = t.siteTitle;
-            if (dom.siteTagline) dom.siteTagline.innerText = t.tagline;
-            if (dom.langText) dom.langText.innerText = t.langBtn;
-            if (dom.loadingMsg) dom.loadingMsg.innerText = t.loading;
-            if (dom.reposTitle) dom.reposTitle.innerText = t.reposTitle;
-            if (dom.galleryTitle) dom.galleryTitle.innerText = t.galleryTitle;
-            if (dom.footerText) dom.footerText.innerText = t.footerText;
-            if (dom.footerSub) dom.footerSub.innerText = t.footerSub;
-            
-            if (repoCountBadge && reposData.length) {
-                repoCountBadge.innerText = `${reposData.length} ${t.repoCountPrefix}`;
-            }
-            
-            // 更新主题下拉框文字
-            updateThemeSelectLabels();
-            
-            // 重新渲染卡片（如有数据）
-            if (window._currentUserData) {
-                renderProfileCard(window._currentUserData, window._currentStatus);
-            }
-            if (reposData.length) {
-                renderCarouselTrack();
-            }
-            
-            if (save) {
-                try { localStorage.setItem(STORAGE_LANG_KEY, lang); } catch(e) {}
-            }
-        }
+function setLanguage(lang, save = true) {
+    currentLang = lang;
+    const t = TEXTS[lang];
+    
+    // 更新页面文本
+    if (dom.siteTitle) dom.siteTitle.innerText = t.siteTitle;
+    if (dom.siteTagline) dom.siteTagline.innerText = t.tagline;
+    if (dom.langText) dom.langText.innerText = t.langBtn;
+    if (dom.loadingMsg) dom.loadingMsg.innerText = t.loading;
+    if (dom.reposTitle) dom.reposTitle.innerText = t.reposTitle;
+    if (dom.galleryTitle) dom.galleryTitle.innerText = t.galleryTitle;
+    if (dom.footerText) dom.footerText.innerText = t.footerText;
+    if (dom.footerSub) dom.footerSub.innerText = t.footerSub;
+    
+    if (dom.repoCountBadge && reposData.length) {
+        dom.repoCountBadge.innerText = `${reposData.length} ${t.repoCountPrefix}`;
+    }
+    
+    // 更新主题下拉框文字
+    updateThemeSelectLabels();
+    
+    // 重新渲染卡片（仅在已有用户数据时）
+    if (window._currentUserData && window._currentStatus) {
+        renderProfileCard(window._currentUserData, window._currentStatus);
+    }
+    
+    // 重新渲染轮播（仅在已有仓库数据时）
+    if (reposData.length && dom.carouselTrack) {
+        renderCarouselTrack();
+        updateCarousel();
+    }
+    
+    if (save) {
+        try { localStorage.setItem(STORAGE_LANG_KEY, lang); } catch(e) {}
+    }
+}
 
         // ==================== 渲染 GitHub 资料卡 ====================
-        function renderProfileCard(user, status) {
-            if (!user) return;
-            const t = TEXTS[currentLang];
-            const theme = THEMES[currentTheme];
-            const displayName = user.name || user.login;
-            const bioText = (user.bio && user.bio.trim()) ? user.bio : t.profileFallbackBio;
-            const statusIcon = status === 'active' ? '💻' : (status === 'idle' ? '🌙' : '💤');
-            const statusTitle = status === 'active' ? (currentLang === 'zh' ? '活跃编码中' : 'Active') : (status === 'idle' ? (currentLang === 'zh' ? '最近休息中' : 'Idle') : (currentLang === 'zh' ? '离线' : 'Offline'));
-            
-            const html = `
-                <div class="profile-card" style="background:${theme.cardBg}; border-color:${theme.cardBorder};">
-                    <div class="profile-info">
-                        <div class="avatar-wrapper">
-                            <img class="avatar" src="${user.avatar_url}" alt="avatar" style="border-color:${theme.borderLight};">
-                            <div class="status-indicator ${status}" title="${statusTitle}">${statusIcon}</div>
-                        </div>
-                        <div class="profile-text">
-                            <h2>${escapeHtml(displayName)} <span style="font-weight:400; font-size:1rem;">· Ukiyograin</span></h2>
-                            <div class="profile-bio">${escapeHtml(bioText)}</div>
-                            <div class="profile-meta">
-                                <span><i class="fas fa-map-marker-alt"></i> ${escapeHtml(user.location || t.locationFallback)}</span>
-                                <span><i class="fas fa-link"></i> <a href="${user.blog && user.blog.startsWith('http') ? user.blog : '#'}" target="_blank" style="color:${theme.accentMuted};">${user.blog ? truncateUrl(user.blog) : t.blogFallback}</a></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="stats-mini" style="background:${theme.statBg}; border-color:${theme.cardBorder};">
-                        <div><div class="stats-number">${user.public_repos ?? 0}</div><div class="stats-label">${t.reposLabel}</div></div>
-                        <div><div class="stats-number">${user.followers ?? 0}</div><div class="stats-label">${t.followersLabel}</div></div>
-                        <div><div class="stats-number">${user.following ?? 0}</div><div class="stats-label">${t.followingLabel}</div></div>
+ function renderProfileCard(user, status) {
+    if (!user) return;
+    const t = TEXTS[currentLang];
+    const theme = THEMES[currentTheme];
+    const displayName = user.name || user.login;
+    const bioText = (user.bio && user.bio.trim()) ? user.bio : t.profileFallbackBio;
+    const statusIcon = status === 'active' ? '💻' : (status === 'idle' ? '🌙' : '💤');
+    const statusTitle = status === 'active' ? (currentLang === 'zh' ? '活跃编码中' : 'Active') : (status === 'idle' ? (currentLang === 'zh' ? '最近休息中' : 'Idle') : (currentLang === 'zh' ? '离线' : 'Offline'));
+    
+    const html = `
+        <div class="profile-card" style="background:${theme.cardBg}; border-color:${theme.cardBorder};">
+            <div class="profile-info">
+                <div class="avatar-wrapper">
+                    <img class="avatar" src="${user.avatar_url}" alt="avatar" style="border-color:${theme.borderLight};">
+                    <div class="status-indicator ${status}" title="${statusTitle}">${statusIcon}</div>
+                </div>
+                <div class="profile-text">
+                    <h2>${escapeHtml(displayName)} <span style="font-weight:400; font-size:1rem;">· Ukiyograin</span></h2>
+                    <div class="profile-bio">${escapeHtml(bioText)}</div>
+                    <div class="profile-meta">
+                        <span><i class="fas fa-map-marker-alt"></i> ${escapeHtml(user.location || t.locationFallback)}</span>
+                        <span><i class="fas fa-link"></i> <a href="${user.blog && user.blog.startsWith('http') ? user.blog : '#'}" target="_blank" style="color:${theme.accentMuted};">${user.blog ? truncateUrl(user.blog) : t.blogFallback}</a></span>
                     </div>
                 </div>
-            `;
-            dom.profileContainer.innerHTML = html;
-        }
+            </div>
+            <div class="stats-mini" style="background:${theme.statBg}; border-color:${theme.cardBorder};">
+                <div>
+                    <div class="stats-number">${user.public_repos ?? 0}</div>
+                    <div class="stats-label">${t.reposLabel}</div>
+                </div>
+                <div>
+                    <div class="stats-number">${user.followers ?? 0}</div>
+                    <div class="stats-label">${t.followersLabel}</div>
+                </div>
+                <div>
+                    <div class="stats-number">${user.following ?? 0}</div>
+                    <div class="stats-label">${t.followingLabel}</div>
+                </div>
+            </div>
+        </div>
+    `;
+    dom.profileContainer.innerHTML = html;
+}
 
         // ==================== 仓库轮播 ====================
         function updateItemsPerView() {
@@ -1287,39 +1299,48 @@
             return await res.json();
         }
 
-        async function loadGitHubData() {
-            try {
-                const [userData, reposDataRaw, eventsData] = await Promise.all([
-                    fetchJSON(`https://api.github.com/users/${GITHUB_USERNAME}`),
-                    fetchJSON(`https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=updated&per_page=30&direction=desc`),
-                    fetchJSON(`https://api.github.com/users/${GITHUB_USERNAME}/events?per_page=1`)
-                ]);
-                
-                let status = 'offline';
-                if (eventsData && eventsData.length) {
-                    const diff = (new Date() - new Date(eventsData[0].created_at)) / (1000 * 3600);
-                    if (diff < 2) status = 'active';
-                    else if (diff < 24) status = 'idle';
-                }
-                
-                window._currentUserData = userData;
-                window._currentStatus = status;
-                renderProfileCard(userData, status);
-                
-                reposData = reposDataRaw.sort((a, b) => (b.stargazers_count || 0) - (a.stargazers_count || 0)).slice(0, 10);
-                if (reposData.length) {
-                    dom.reposSection.style.display = 'block';
-                    initCarousel();
-                }
-                
-                if (dom.loadingPlaceholder) dom.loadingPlaceholder.style.display = 'none';
-                loadMarqueeGallery();
-            } catch(e) {
-                dom.profileContainer.innerHTML = `<div class="status-message"><i class="fas fa-cloud-moon"></i> 无法获取GitHub数据，请刷新重试。</div>`;
-                if (dom.loadingPlaceholder) dom.loadingPlaceholder.style.display = 'none';
-                dom.reposSection.style.display = 'none';
-            }
+ // 修复 loadGitHubData 函数中的隐藏逻辑
+async function loadGitHubData() {
+    try {
+        const [userData, reposDataRaw, eventsData] = await Promise.all([
+            fetchJSON(`https://api.github.com/users/${GITHUB_USERNAME}`),
+            fetchJSON(`https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=updated&per_page=30&direction=desc`),
+            fetchJSON(`https://api.github.com/users/${GITHUB_USERNAME}/events?per_page=1`)
+        ]);
+        
+        let status = 'offline';
+        if (eventsData && eventsData.length) {
+            const diff = (new Date() - new Date(eventsData[0].created_at)) / (1000 * 3600);
+            if (diff < 2) status = 'active';
+            else if (diff < 24) status = 'idle';
         }
+        
+        window._currentUserData = userData;
+        window._currentStatus = status;
+        renderProfileCard(userData, status);
+        
+        reposData = reposDataRaw.sort((a, b) => (b.stargazers_count || 0) - (a.stargazers_count || 0)).slice(0, 10);
+        if (reposData.length) {
+            dom.reposSection.style.display = 'block';
+            initCarousel();
+        }
+        
+        // 隐藏加载提示 - 修复：确保正确隐藏
+        const loadingPlaceholder = document.getElementById('loading-placeholder');
+        if (loadingPlaceholder) {
+            loadingPlaceholder.style.display = 'none';
+        }
+        
+        loadMarqueeGallery();
+    } catch(e) {
+        console.error('GitHub API 错误:', e);
+        const loadingPlaceholder = document.getElementById('loading-placeholder');
+        if (loadingPlaceholder) {
+            loadingPlaceholder.innerHTML = `<div class="status-message"><i class="fas fa-cloud-moon"></i> 无法获取GitHub数据，请刷新重试。</div>`;
+        }
+        dom.reposSection.style.display = 'none';
+    }
+}
 
         // ==================== 初始化主题下拉框 ====================
         function initThemeSelect() {
