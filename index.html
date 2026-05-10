@@ -1089,35 +1089,49 @@
         musicBtn.classList.add('playing');
     }
 
-    function initMusicPlayer() {
-        pendingPlaylistId = getRandomPlaylistId();
-        
-        function loadMusicOnInteraction() {
-            if (musicInitialized) return;
-            loadMusicIframe();
+function initMusicPlayer() {
+    pendingPlaylistId = getRandomPlaylistId();
+
+    function loadMusicOnInteraction() {
+        if (musicInitialized) {
             document.removeEventListener('click', loadMusicOnInteraction);
             document.removeEventListener('touchstart', loadMusicOnInteraction);
             document.removeEventListener('keydown', loadMusicOnInteraction);
+            return;
         }
-        
-        document.addEventListener('click', loadMusicOnInteraction);
-        document.addEventListener('touchstart', loadMusicOnInteraction);
-        document.addEventListener('keydown', loadMusicOnInteraction);
+
+        if (!musicIframeVisible) return;
+
+        loadMusicIframe();
+        document.removeEventListener('click', loadMusicOnInteraction);
+        document.removeEventListener('touchstart', loadMusicOnInteraction);
+        document.removeEventListener('keydown', loadMusicOnInteraction);
     }
+
+    document.addEventListener('click', loadMusicOnInteraction);
+    document.addEventListener('touchstart', loadMusicOnInteraction);
+    document.addEventListener('keydown', loadMusicOnInteraction);
+}
 
 function toggleMusicIframe() {
     musicIframeVisible = !musicIframeVisible;
-    
+
     if (musicIframeVisible) {
+        musicIframeContainer.classList.add('show');
+
         if (!musicInitialized) {
             loadMusicIframe();
         }
-        musicIframeContainer.classList.add('show');
+
         musicBtn.classList.add('playing');
         localStorage.setItem(STORAGE_MUSIC_VISIBLE_KEY, 'visible');
     } else {
         musicIframeContainer.classList.remove('show');
         musicBtn.classList.remove('playing');
+
+        musicIframe.src = '';
+        musicInitialized = false;
+
         localStorage.setItem(STORAGE_MUSIC_VISIBLE_KEY, 'hidden');
     }
 }
