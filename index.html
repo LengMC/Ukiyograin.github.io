@@ -1300,7 +1300,7 @@ function toggleMusicIframe() {
 			themes.forEach((themeKey, idx) => {
 				const angle = idx * angleStep;
 				const startAngle = angle - 72;
-				const labelTilt = angle > 90 && angle < 270 ? 180 : 0;
+				const labelTilt = 0;
 				const theme = THEMES[themeKey];
 				const themeName = TEXTS[currentLang].themeNames[themeKey] || themeKey;
 
