@@ -177,49 +177,120 @@
             transform: rotate(15deg);
         }
 
-        .theme-ring-panel {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 82px;
-            height: 82px;
-            transform: translate(-50%, -50%) scale(0);
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.28s cubic-bezier(0.2, 0.9, 0.4, 1.2);
-            z-index: 20;
-            pointer-events: none;
-            border-radius: 50%;
-        }
+	.theme-ring-panel {
+		position: fixed;
+		top: var(--wheel-y, 120px);
+		left: var(--wheel-x, 50vw);
+		width: 260px;
+		height: 260px;
+		transform: translate(-50%, -50%);
+		opacity: 0;
+		visibility: hidden;
+		pointer-events: none;
+		z-index: 2000;
+		border-radius: 50%;
+		transition: opacity 0.22s ease, visibility 0.22s ease;
+	}
 
-        .theme-ring-panel.open {
-            transform: translate(-50%, -50%) scale(1);
-            opacity: 1;
-            visibility: visible;
-            pointer-events: auto;
-        }
+	.theme-ring-panel.open {
+		opacity: 1;
+		visibility: visible;
+		pointer-events: auto;
+	}
 
-        .ring-container {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-        }
+	.ring-container {
+		position: relative;
+		width: 100%;
+		height: 100%;
+		border-radius: 50%;
+	}
 
-        .ring-segment {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            cursor: pointer;
-            transition: filter 0.2s, transform 0.1s;
-            pointer-events: auto;
-        }
+	.ring-segment {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		width: 74px;
+		height: 74px;
+		border-radius: 50%;
+		border: 1px solid rgba(255,255,255,0.28);
+		cursor: pointer;
+		transform:
+			translate(-50%, -50%)
+			rotate(var(--start-angle))
+			translateY(0)
+			rotate(calc(-1 * var(--start-angle)))
+			scale(0.35);
+		opacity: 0;
+		transition:
+			transform 0.42s cubic-bezier(0.2, 0.9, 0.25, 1.25),
+			opacity 0.22s ease,
+			box-shadow 0.2s ease,
+			filter 0.2s ease;
+		transition-delay: calc(var(--i) * 32ms);
+		pointer-events: auto;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		box-shadow: 0 10px 24px rgba(0,0,0,0.16);
+		overflow: hidden;
+		padding: 0;
+		font-family: inherit;
+	}
 
-        .ring-segment:hover {
-            filter: brightness(1.08);
-            transform: scale(1.02);
-        }
+	.theme-ring-panel.open .ring-segment {
+		transform:
+			translate(-50%, -50%)
+			rotate(var(--angle))
+			translateY(-105px)
+			rotate(calc(-1 * var(--angle)))
+			scale(1);
+		opacity: 1;
+	}
+
+	.ring-segment:hover {
+		filter: brightness(1.06);
+		box-shadow: 0 14px 28px rgba(0,0,0,0.22);
+	}
+
+	.ring-segment.active {
+		box-shadow:
+			0 0 0 3px rgba(255,255,255,0.9),
+			0 12px 26px rgba(0,0,0,0.24);
+	}
+
+	.ring-segment::before {
+		content: '';
+		position: absolute;
+		inset: 7px;
+		border-radius: 50%;
+		background: rgba(255,255,255,0.68);
+		backdrop-filter: blur(8px);
+		border: 1px solid rgba(255,255,255,0.4);
+	}
+
+	.ring-theme-name {
+		position: relative;
+		z-index: 2;
+		max-width: 54px;
+		color: #1d1d1d;
+		font-size: 0.62rem;
+		line-height: 1.15;
+		font-weight: 600;
+		text-align: center;
+		word-break: keep-all;
+		transform: rotate(var(--label-tilt));
+		text-shadow: 0 1px 1px rgba(255,255,255,0.55);
+	}
+
+	.ring-segment.dark-label::before {
+		background: rgba(0,0,0,0.42);
+		border-color: rgba(255,255,255,0.18);
+	}
+
+	.ring-segment.dark-label .ring-theme-name {
+		color: #fff;
+		text-shadow: 0 1px 2px rgba(0,0,0,0.35);
+	}
 
         .wheel-center-info {
             position: absolute;
@@ -891,20 +962,42 @@
                 height: 36px;
                 font-size: 20px;
             }
-            .theme-ring-panel {
-                width: 78px;
-                height: 78px;
-            }
-            .wheel-center-info {
-                width: 48px;
-                height: 48px;
-            }
-            .wheel-center-info i {
-                font-size: 0.9rem;
-            }
-            .wheel-center-info span {
-                font-size: 0.55rem;
-            }
+		.theme-ring-panel {
+			width: 220px;
+			height: 220px;
+		}
+
+		.theme-ring-panel.open .ring-segment {
+			transform:
+				translate(-50%, -50%)
+				rotate(var(--angle))
+				translateY(-86px)
+				rotate(calc(-1 * var(--angle)))
+				scale(1);
+		}
+
+		.ring-segment {
+			width: 64px;
+			height: 64px;
+		}
+
+		.ring-theme-name {
+			max-width: 46px;
+			font-size: 0.55rem;
+		}
+
+		.wheel-center-info {
+			width: 48px;
+			height: 48px;
+		}
+
+		.wheel-center-info i {
+			font-size: 0.9rem;
+		}
+
+		.wheel-center-info span {
+			font-size: 0.55rem;
+		}
             .github-badge {
                 padding: 0.4rem 0.8rem;
                 font-size: 0.75rem;
@@ -932,20 +1025,44 @@
             }
         }
 
-        @media (max-width: 480px) {
-            .title-group h1 {
-                font-size: clamp(1.4rem, 7vw, 2rem);
-            }
-            .profile-text h2 {
-                font-size: 1.2rem;
-            }
-            .stats-number {
-                font-size: 1.1rem;
-            }
-            .music-iframe-container iframe {
-                width: 260px;
-            }
-        }
+		@media (max-width: 480px) {
+			.title-group h1 {
+				font-size: clamp(1.4rem, 7vw, 2rem);
+			}
+			.profile-text h2 {
+				font-size: 1.2rem;
+			}
+			.stats-number {
+				font-size: 1.1rem;
+			}
+			.music-iframe-container iframe {
+				width: 260px;
+			}
+
+			.theme-ring-panel {
+				width: 200px;
+				height: 200px;
+			}
+
+			.theme-ring-panel.open .ring-segment {
+				transform:
+					translate(-50%, -50%)
+					rotate(var(--angle))
+					translateY(-78px)
+					rotate(calc(-1 * var(--angle)))
+					scale(1);
+			}
+
+			.ring-segment {
+				width: 58px;
+				height: 58px;
+			}
+
+			.ring-theme-name {
+				max-width: 42px;
+				font-size: 0.5rem;
+			}
+		}
 
         a {
             text-decoration: none;
@@ -1064,7 +1181,15 @@
     const musicDisc = document.getElementById('musicDisc');
 
     const lightbox = document.getElementById('lightbox'), lightboxImg = document.getElementById('lightboxImg'), lightboxCloseBtn = document.getElementById('lightboxCloseBtn');
-    function escapeHtml(s) { return s ? s.replace(/[&<>]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;'})[m]) : ''; }
+function escapeHtml(s) {
+    return s ? String(s).replace(/[&<>"']/g, m => ({
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#39;'
+    })[m]) : '';
+}
     function truncateUrl(url) { return url.length > 30 ? url.substring(0,27)+'...' : url; }
     function openLightbox(src) { lightboxImg.src = src; lightbox.classList.add('active'); document.body.style.overflow = 'hidden'; }
     function closeLightbox() { lightbox.classList.remove('active'); document.body.style.overflow = ''; }
@@ -1162,30 +1287,44 @@ function toggleMusicIframe() {
 
     function loadSnakeSvg() { const t = THEMES[currentTheme]; fetch(t.isLight ? 'svg/snake-Light.svg' : 'svg/snake-Dark.svg').then(res=>res.ok?res.text():Promise.reject()).then(svg=>{ dom.snakeContainer.innerHTML = svg; const svgEl = dom.snakeContainer.querySelector('svg'); if(svgEl){ svgEl.style.width='100%'; svgEl.style.height='auto'; svgEl.style.display='block'; svgEl.style.borderRadius='24px'; } }).catch(()=>{ dom.snakeContainer.innerHTML='<div style="padding:1rem;text-align:center;border:1px dashed;border-radius:24px;"><i class="fas fa-gamepad"></i> 🐍 snake svg missing</div>'; }); }
 
-    function buildRingPanel() {
-        const container = document.getElementById('ringContainer'); if(!container) return;
-        const themes = Object.keys(THEMES); const count = themes.length; const angleStep = 360 / count;
-        const rOuter = 41, rInner = 30; 
-        container.innerHTML = '';
-        themes.forEach((themeKey, idx) => {
-            const startAng = idx * angleStep - 90;
-            const endAng = (idx + 1) * angleStep - 90;
-            const radS = startAng * Math.PI/180, radE = endAng * Math.PI/180;
-            const cx = 41, cy = 41;
-            const x1 = cx + rInner * Math.cos(radS), y1 = cy + rInner * Math.sin(radS);
-            const x2 = cx + rOuter * Math.cos(radS), y2 = cy + rOuter * Math.sin(radS);
-            const x3 = cx + rOuter * Math.cos(radE), y3 = cy + rOuter * Math.sin(radE);
-            const x4 = cx + rInner * Math.cos(radE), y4 = cy + rInner * Math.sin(radE);
-            const path = `M ${x1} ${y1} L ${x2} ${y2} A ${rOuter} ${rOuter} 0 0 1 ${x3} ${y3} L ${x4} ${y4} A ${rInner} ${rInner} 0 0 0 ${x1} ${y1} Z`;
-            const seg = document.createElement('div'); seg.className = 'ring-segment';
-            seg.style.background = THEMES[themeKey].ringColor || THEMES[themeKey].btnBg;
-            seg.style.clipPath = `path('${path}')`;
-            seg.style.position = 'absolute'; seg.style.top = '0'; seg.style.left = '0';
-            seg.setAttribute('data-theme', themeKey);
-            seg.addEventListener('click', (e) => { e.stopPropagation(); applyTheme(themeKey, true); document.getElementById('themeRingPanel')?.classList.remove('open'); });
-            container.appendChild(seg);
-        });
-    }
+		function buildRingPanel() {
+			const container = document.getElementById('ringContainer');
+			if (!container) return;
+
+			const themes = Object.keys(THEMES);
+			const count = themes.length;
+			const angleStep = 360 / count;
+
+			container.innerHTML = '';
+
+			themes.forEach((themeKey, idx) => {
+				const angle = idx * angleStep;
+				const startAngle = angle - 72;
+				const labelTilt = angle > 90 && angle < 270 ? 180 : 0;
+				const theme = THEMES[themeKey];
+				const themeName = TEXTS[currentLang].themeNames[themeKey] || themeKey;
+
+				const seg = document.createElement('button');
+				seg.type = 'button';
+				seg.className = `ring-segment${themeKey === currentTheme ? ' active' : ''}${theme.isLight ? '' : ' dark-label'}`;
+				seg.style.background = theme.ringColor || theme.btnBg;
+				seg.style.setProperty('--i', idx);
+				seg.style.setProperty('--angle', `${angle}deg`);
+				seg.style.setProperty('--start-angle', `${startAngle}deg`);
+				seg.style.setProperty('--label-tilt', `${labelTilt}deg`);
+				seg.setAttribute('data-theme', themeKey);
+				seg.setAttribute('aria-label', themeName);
+				seg.innerHTML = `<span class="ring-theme-name">${escapeHtml(themeName)}</span>`;
+
+				seg.addEventListener('click', (e) => {
+					e.stopPropagation();
+					applyTheme(themeKey, true);
+					document.getElementById('themeRingPanel')?.classList.remove('open');
+				});
+
+				container.appendChild(seg);
+			});
+		}
 
     function applyTheme(themeName, save=true) {
         currentTheme = themeName; const t = THEMES[themeName];
@@ -1215,7 +1354,75 @@ function toggleMusicIframe() {
         });
     }
 
-    function initThemeWheel() { buildRingPanel(); const trigger = document.getElementById('wheelTriggerBtn'); const panel = document.getElementById('themeRingPanel'); if(trigger && panel) { trigger.addEventListener('click', (e) => { e.stopPropagation(); panel.classList.toggle('open'); }); document.addEventListener('click', (e) => { if(!panel.contains(e.target) && !trigger.contains(e.target)) panel.classList.remove('open'); }); } }
+function updateThemeWheelPosition() {
+    const trigger = document.getElementById('wheelTriggerBtn');
+    const panel = document.getElementById('themeRingPanel');
+    if (!trigger || !panel) return;
+
+    const rect = trigger.getBoundingClientRect();
+    const panelSize = window.innerWidth <= 480 ? 200 : window.innerWidth <= 768 ? 220 : 260;
+    const padding = 10;
+
+    let x = rect.left + rect.width / 2;
+    let y = rect.top + rect.height / 2;
+
+    const minX = panelSize / 2 + padding;
+    const maxX = window.innerWidth - panelSize / 2 - padding;
+    const minY = panelSize / 2 + padding;
+    const maxY = window.innerHeight - panelSize / 2 - padding;
+
+    x = Math.min(Math.max(x, minX), maxX);
+    y = Math.min(Math.max(y, minY), maxY);
+
+    panel.style.setProperty('--wheel-x', `${x}px`);
+    panel.style.setProperty('--wheel-y', `${y}px`);
+}
+
+function initThemeWheel() {
+    buildRingPanel();
+
+    const trigger = document.getElementById('wheelTriggerBtn');
+    const panel = document.getElementById('themeRingPanel');
+
+    if (!trigger || !panel) return;
+
+    trigger.addEventListener('click', (e) => {
+        e.stopPropagation();
+
+        if (!panel.classList.contains('open')) {
+            buildRingPanel();
+            updateThemeWheelPosition();
+        }
+
+        panel.classList.toggle('open');
+    });
+
+    panel.addEventListener('click', (e) => {
+        e.stopPropagation();
+    });
+
+    document.addEventListener('click', () => {
+        panel.classList.remove('open');
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            panel.classList.remove('open');
+        }
+    });
+
+    window.addEventListener('resize', () => {
+        if (panel.classList.contains('open')) {
+            updateThemeWheelPosition();
+        }
+    });
+
+    window.addEventListener('scroll', () => {
+        if (panel.classList.contains('open')) {
+            updateThemeWheelPosition();
+        }
+    }, { passive: true });
+}
 
     function renderLinks() {
         const t = TEXTS[currentLang];
